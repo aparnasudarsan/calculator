@@ -5,7 +5,7 @@
   <title>Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzY2N2VlYSIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIj4rPC90ZXh0Pgo8L3N2Zz4K">
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzY2N2VlYSIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZpZ2h0PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgd2VpZ2h0PSJib2xkIj4rPC90ZXh0Pgo8L3N2Zz4K">
   <!-- Bootstrap CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -57,10 +57,6 @@
       outline: none;
     }
 
-    .display::placeholder {
-      color: #999;
-    }
-
     .calculator-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -84,17 +80,6 @@
       justify-content: center;
     }
 
-    .calc-btn:hover {
-      background: rgba(160, 82, 45, 0.9);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .calc-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
     .calc-btn.operator {
       background: rgba(205, 133, 63, 0.8);
       border-color: rgba(222, 184, 135, 0.6);
@@ -102,42 +87,16 @@
       font-weight: bold;
     }
 
-    .calc-btn.operator:hover {
-      background: rgba(222, 184, 135, 0.9);
-      color: #654321;
-    }
-
     .calc-btn.clear {
       background: rgba(178, 34, 34, 0.8);
-      border-color: rgba(220, 20, 60, 0.6);
-    }
-
-    .calc-btn.clear:hover {
-      background: rgba(220, 20, 60, 0.9);
     }
 
     .calc-btn.equals {
       background: rgba(34, 139, 34, 0.8);
-      border-color: rgba(50, 205, 50, 0.6);
-      grid-column: span 1;
-    }
-
-    .calc-btn.equals:hover {
-      background: rgba(50, 205, 50, 0.9);
     }
 
     .calc-btn.zero {
       grid-column: span 2;
-    }
-
-    .calc-btn.backspace {
-      background: rgba(178, 34, 34, 0.8);
-      border-color: rgba(220, 20, 60, 0.6);
-      font-size: 1.2rem;
-    }
-
-    .calc-btn.backspace:hover {
-      background: rgba(220, 20, 60, 0.9);
     }
 
     @media (max-width: 480px) {
@@ -145,15 +104,12 @@
         margin: 15px;
         padding: 20px;
       }
-      
       .calculator-title {
         font-size: 2rem;
       }
-      
       .display {
         font-size: 1.5rem;
       }
-      
       .calc-btn {
         font-size: 1.2rem;
         padding: 15px;
@@ -163,40 +119,32 @@
   </style>
 </head>
 <body>
-  
   <div class="calculator-container">
     <h1 class="calculator-title">Calculator</h1>
-    
     <div class="display-container">
       <input type="text" class="display" id="calculatorDisplay" placeholder="0" readonly>
     </div>
-    
     <div class="calculator-grid">
-      <!-- Row 1 -->
       <button class="calc-btn clear" id="clearBtn">AC</button>
       <button class="calc-btn backspace" id="backspaceBtn">⌫</button>
       <button class="calc-btn operator" id="percentBtn">%</button>
       <button class="calc-btn operator" id="divideBtn">÷</button>
-      
-      <!-- Row 2 -->
+
       <button class="calc-btn" id="btn7">7</button>
       <button class="calc-btn" id="btn8">8</button>
       <button class="calc-btn" id="btn9">9</button>
       <button class="calc-btn operator" id="multiplyBtn">×</button>
-      
-      <!-- Row 3 -->
+
       <button class="calc-btn" id="btn4">4</button>
       <button class="calc-btn" id="btn5">5</button>
       <button class="calc-btn" id="btn6">6</button>
       <button class="calc-btn operator" id="subtractBtn">−</button>
-      
-      <!-- Row 4 -->
+
       <button class="calc-btn" id="btn1">1</button>
       <button class="calc-btn" id="btn2">2</button>
       <button class="calc-btn" id="btn3">3</button>
       <button class="calc-btn operator" id="addBtn">+</button>
-      
-      <!-- Row 5 -->
+
       <button class="calc-btn zero" id="btn0">0</button>
       <button class="calc-btn" id="decimalBtn">.</button>
       <button class="calc-btn equals" id="equalsBtn">=</button>
@@ -205,8 +153,7 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <!-- External JavaScript -->
-  <script src="calculator.js"></script>
-
+  <!-- External JS -->
+  <script src="style.js"></script>
 </body>
 </html>
