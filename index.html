@@ -1,159 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Calculator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzY2N2VlYSIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZpZ2h0PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgd2VpZ2h0PSJib2xkIj4rPC90ZXh0Pgo8L3N2Zz4K">
-  <!-- Bootstrap CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .calculator-container {
-      background: linear-gradient(145deg, rgba(139, 69, 19, 0.9), rgba(101, 67, 33, 0.9));
-      border-radius: 25px;
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      max-width: 400px;
-      width: 100%;
-    }
+        .calculator {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
 
-    .calculator-title {
-      color: white;
-      font-size: 2.5rem;
-      font-weight: 300;
-      text-align: center;
-      margin-bottom: 25px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
+        .display {
+            background: rgba(0, 0, 0, 0.4);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-align: right;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-    .display-container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
 
-    .display {
-      background: transparent;
-      border: none;
-      font-size: 1.8rem;
-      text-align: right;
-      width: 100%;
-      color: #333;
-      font-weight: 500;
-      outline: none;
-    }
+        .btn {
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            height: 70px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-    .calculator-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
 
-    .calc-btn {
-      background: rgba(139, 69, 19, 0.8);
-      border: 2px solid rgba(160, 82, 45, 0.6);
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 600;
-      padding: 20px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .btn:active {
+            transform: translateY(0);
+        }
 
-    .calc-btn.operator {
-      background: rgba(205, 133, 63, 0.8);
-      border-color: rgba(222, 184, 135, 0.6);
-      color: #8B4513;
-      font-weight: bold;
-    }
+        .btn-number {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
 
-    .calc-btn.clear {
-      background: rgba(178, 34, 34, 0.8);
-    }
+        .btn-operator {
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+        }
 
-    .calc-btn.equals {
-      background: rgba(34, 139, 34, 0.8);
-    }
+        .btn-function {
+            background: rgba(130, 130, 130, 0.9);
+            color: white;
+        }
 
-    .calc-btn.zero {
-      grid-column: span 2;
-    }
+        .btn-equals {
+            background: rgba(67, 160, 71, 0.9);
+            color: white;
+        }
 
-    @media (max-width: 480px) {
-      .calculator-container {
-        margin: 15px;
-        padding: 20px;
-      }
-      .calculator-title {
-        font-size: 2rem;
-      }
-      .display {
-        font-size: 1.5rem;
-      }
-      .calc-btn {
-        font-size: 1.2rem;
-        padding: 15px;
-        min-height: 60px;
-      }
-    }
-  </style>
+        .btn-zero {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .display {
+                font-size: 2rem;
+                padding: 15px;
+            }
+            
+            .btn {
+                height: 60px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="calculator-container">
-    <h1 class="calculator-title">Calculator</h1>
-    <div class="display-container">
-      <input type="text" class="display" id="calculatorDisplay" placeholder="0" readonly>
+    <div class="calculator">
+        <input type="text" id="calculatorDisplay" class="display" readonly>
+        <div class="buttons">
+            <button id="clearBtn" class="btn btn-function">C</button>
+            <button id="backspaceBtn" class="btn btn-function">⌫</button>
+            <button id="percentBtn" class="btn btn-function">%</button>
+            <button id="divideBtn" class="btn btn-operator">÷</button>
+
+            <button id="btn7" class="btn btn-number">7</button>
+            <button id="btn8" class="btn btn-number">8</button>
+            <button id="btn9" class="btn btn-number">9</button>
+            <button id="multiplyBtn" class="btn btn-operator">×</button>
+
+            <button id="btn4" class="btn btn-number">4</button>
+            <button id="btn5" class="btn btn-number">5</button>
+            <button id="btn6" class="btn btn-number">6</button>
+            <button id="subtractBtn" class="btn btn-operator">-</button>
+
+            <button id="btn1" class="btn btn-number">1</button>
+            <button id="btn2" class="btn btn-number">2</button>
+            <button id="btn3" class="btn btn-number">3</button>
+            <button id="addBtn" class="btn btn-operator">+</button>
+
+            <button id="btn0" class="btn btn-number btn-zero">0</button>
+            <button id="decimalBtn" class="btn btn-number">.</button>
+            <button id="equalsBtn" class="btn btn-equals">=</button>
+        </div>
     </div>
-    <div class="calculator-grid">
-      <button class="calc-btn clear" id="clearBtn">AC</button>
-      <button class="calc-btn backspace" id="backspaceBtn">⌫</button>
-      <button class="calc-btn operator" id="percentBtn">%</button>
-      <button class="calc-btn operator" id="divideBtn">÷</button>
 
-      <button class="calc-btn" id="btn7">7</button>
-      <button class="calc-btn" id="btn8">8</button>
-      <button class="calc-btn" id="btn9">9</button>
-      <button class="calc-btn operator" id="multiplyBtn">×</button>
-
-      <button class="calc-btn" id="btn4">4</button>
-      <button class="calc-btn" id="btn5">5</button>
-      <button class="calc-btn" id="btn6">6</button>
-      <button class="calc-btn operator" id="subtractBtn">−</button>
-
-      <button class="calc-btn" id="btn1">1</button>
-      <button class="calc-btn" id="btn2">2</button>
-      <button class="calc-btn" id="btn3">3</button>
-      <button class="calc-btn operator" id="addBtn">+</button>
-
-      <button class="calc-btn zero" id="btn0">0</button>
-      <button class="calc-btn" id="decimalBtn">.</button>
-      <button class="calc-btn equals" id="equalsBtn">=</button>
-    </div>
-  </div>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <!-- External JS -->
-  <script src="style.js"></script>
+    <script src="style.js"></script>
 </body>
 </html>
